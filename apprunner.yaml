@@ -14,3 +14,6 @@ run:
   command: gunicorn --workers 2 ll_project.wsgi
   network:
     port: 8000
+  secrets:
+    - name: DATABASE_SECRET
+    - value-from: "arn:aws:secretsmanager:us-east-1:465616206436:secret:prod/rds/postgres-Mce3to"
