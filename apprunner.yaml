@@ -8,7 +8,9 @@ build:
     
 run:
   runtime-version: 3.11.11
-  command: pip3 install -r requirements.txt && python3 manage.py migrate && gunicorn --workers 2 ll_project.wsgi
+  pre-run:
+    - pip3 install -r requirements.txt
+  command: python3 manage.py migrate && gunicorn --workers 2 ll_project.wsgi
   network:
     port: 8000
   secrets:
