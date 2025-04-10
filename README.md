@@ -33,3 +33,9 @@ pip install -r requirements.txt
 ```bash
 python manage.py runserver
 ```
+
+5. Running the production server locally
+
+```bash
+gunicorn --workers 2 ll_project.wsgi
+```
