@@ -9,6 +9,7 @@ build:
 run:
   runtime-version: 3.11.11
   pre-run:
+    - pip3 install -r requirements.txt
     - python3 manage.py migrate
   command: gunicorn --workers 2 ll_project.wsgi
   network:
