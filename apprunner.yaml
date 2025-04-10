@@ -9,10 +9,7 @@ build:
 run:
   runtime-version: 3.11.11
   pre-run:
-    - pip3 install -r requirements.txt
-    - python3 manage.py migrate auth
-    - python3 manage.py migrate admin
-    - python3 manage.py migrate --run-syncdb
+    - python3 manage.py migrate
   command: gunicorn --workers 2 ll_project.wsgi
   network:
     port: 8000
