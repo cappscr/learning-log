@@ -90,8 +90,6 @@ WSGI_APPLICATION = 'll_project.wsgi.application'
 if "DATABASE_SECRET" in environ:
     database_secret = environ.get("DATABASE_SECRET")
     db_url = json.loads(database_secret)["DATABASE_URL"]
-    print(f"Database Secret: {database_secret}")
-    print(f"Database URL: {db_url}")
     DATABASES = {"default": dj_database_url.parse(
         db_url,
         conn_max_age=600,
