@@ -30,6 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['.awsapprunner.com', 'learning.christophercapps.com']
 
+CSRF_TRUSTED_ORIGINS = ['https://learning.christophercapps.com']
+
 
 # Application definition
 
