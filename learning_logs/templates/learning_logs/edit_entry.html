@@ -1,6 +1,10 @@
 {% extends "learning_logs/base.html" %}
 {% load django_bootstrap5 %}
 
+{% block page_title %}
+  <title>Learning Log | Edit Entry</title>
+{% endblock page_title %}
+
 {% block page_header %}
   <p>
     <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
