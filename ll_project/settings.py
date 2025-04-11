@@ -88,6 +88,7 @@ WSGI_APPLICATION = 'll_project.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 if "DATABASE_SECRET" in environ:
+    DEBUG = False
     database_secret = environ.get("DATABASE_SECRET")
     db_url = json.loads(database_secret)["DATABASE_URL"]
     DATABASES = {"default": dj_database_url.parse(
