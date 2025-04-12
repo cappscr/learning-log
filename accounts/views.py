@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from utils.helpers import sendGaEvent
 
 # Create your views here.
 def register(request):
@@ -14,6 +15,10 @@ def register(request):
 
     if form.is_valid():
       new_user = form.save()
+      sendGaEvent("user_registration", {
+        "username": str(new_user)
+      })
+
       # Log the user in and then redirect to the home page.
       login(request, new_user)
       return redirect('learning_logs:index')
