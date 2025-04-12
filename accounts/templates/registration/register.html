@@ -18,3 +18,23 @@
   </form>
 
 {% endblock content %}
+
+{% block custom_javascript %}
+<script>
+  if (!gaClientId) window.setTimeout(appendToForm, 250);
+  else appendToForm();
+  
+  function appendToForm() {
+    const gaClientIdInput = document.createElement("input");
+    gaClientIdInput.type = "hidden";
+    gaClientIdInput.name = "ga_client_id";
+    gaClientIdInput.value = gaClientId;
+    const hiddenInputs = document.getElementsByName("csrfmiddlewaretoken");
+    if (hiddenInputs) {
+      hiddenInputs.forEach((input) => {
+        input.insertAdjacentElement("afterend", gaClientIdInput);
+      });
+    }
+  }
+</script>
+{% endblock custom_javascript %}

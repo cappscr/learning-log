@@ -81,5 +81,17 @@
       </div>
     </main>
 
+    <script>
+      var gaClientId = gaClientId || null;
+
+      function getGaClientId() {
+        let clientId = gtag("get", "G-G3V2DWQJQR", "client_id", (clientId) => {
+          gaClientId = clientId;
+        });
+      }
+
+      getGaClientId();
+    </script>
+    {% block custom_javascript %}{% endblock custom_javascript %}
   </body>
 </html>

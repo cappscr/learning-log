@@ -17,7 +17,24 @@
   <form action="{% url 'learning_logs:new_entry' topic.id %}" method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
-    {% bootstrap_button button_type="submit" content="Add entry" %}
+    {% bootstrap_button button_type="submit" content="Add entry" onclick=()=>console.log(%}
   </form>
 
 {% endblock content %}
+
+{% block custom_javascript %}
+  <script>
+    if (!gaClientId) window.setTimeout(appendToForm, 250);
+    else appendToForm();
+    
+    function appendToForm() {
+      const gaClientIdInput = document.createElement("input");
+      gaClientIdInput.type = "hidden";
+      gaClientIdInput.value = gaClientId;
+      const form = document.getElementsByTagName('form')[0];
+      if (form) {
+        form.appendChild(gaClientIdInput);
+      }
+    }
+  </script>
+{% endblock custom_javascript %}
