@@ -9,6 +9,7 @@ base_url = "https://www.google-analytics.com/mp/collect"
 url = base_url + "?measurement_id=" + measurement_id + "&api_secret=" + api_secret
 headers = {"Content-Type": "application/json"}
 
+
 def log(message):
     """Prints a formatted log message"""
     print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}] {message}')
@@ -31,4 +32,4 @@ def sendGaEvent(client_id, event_name, params={}):
             }
         ),
     )
-    log(f"\"POST google-analytics.com\" {r.status_code}")
+    log(f'"POST google-analytics.com" {r.status_code}')
