@@ -1,5 +1,9 @@
 {% extends 'learning_logs/base.html' %}
 
+{% block page_title %}
+  <title>Learning Log | Topic</title>
+{% endblock page_title %}
+
 {% block page_header %}
   <h1>{{ topic.text }}</h1>
 {% endblock page_header %}

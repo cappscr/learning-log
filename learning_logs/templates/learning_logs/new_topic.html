@@ -1,6 +1,10 @@
 {% extends "learning_logs/base.html" %}
 {% load django_bootstrap5 %}
 
+{% block page_title %}
+  <title>Learning Log | New Topic</title>
+{% endblock page_title %}
+
 {% block page_header %}
   <h2>Add a new topic.</h2>
 {% endblock page_header %}
@@ -14,3 +18,23 @@
   </form>
 
 {% endblock content %}
+
+{% block custom_javascript %}
+<script>
+  if (!gaClientId) window.setTimeout(appendToForm, 250);
+  else appendToForm();
+  
+  function appendToForm() {
+    const gaClientIdInput = document.createElement("input");
+    gaClientIdInput.type = "hidden";
+    gaClientIdInput.name = "ga_client_id";
+    gaClientIdInput.value = gaClientId;
+    const hiddenInputs = document.getElementsByName("csrfmiddlewaretoken");
+    if (hiddenInputs) {
+      hiddenInputs.forEach((input) => {
+        input.insertAdjacentElement("afterend", gaClientIdInput);
+      });
+    }
+  }
+</script>
+{% endblock custom_javascript %}

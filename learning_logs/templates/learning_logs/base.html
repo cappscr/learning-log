@@ -3,7 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Learning Log</title>
+    {% block page_title %}{% endblock page_title %}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G3V2DWQJQR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-G3V2DWQJQR');
+    </script>
 
     {% load django_bootstrap5 %}
     {% bootstrap_css %}
@@ -72,5 +81,17 @@
       </div>
     </main>
 
+    <script>
+      var gaClientId = gaClientId || null;
+
+      function getGaClientId() {
+        let clientId = gtag("get", "G-G3V2DWQJQR", "client_id", (clientId) => {
+          gaClientId = clientId;
+        });
+      }
+
+      getGaClientId();
+    </script>
+    {% block custom_javascript %}{% endblock custom_javascript %}
   </body>
 </html>
