@@ -17,19 +17,23 @@ def log(message):
 
 def sendGaEvent(client_id, event_name, params={}):
     """Sends a POST request to the Google Analytics Measurement Protocol endpoint"""
-    r = requests.post(
-        url,
-        headers=headers,
-        data=json.dumps(
-            {
-                "client_id": client_id,
-                "events": [
-                    {
-                        "name": event_name,
-                        "params": params,
-                    }
-                ],
-            }
-        ),
-    )
-    log(f'"POST google-analytics.com" {r.status_code}')
+    log(f'"DEBUG {api_secret} {client_id}')
+    if client_id is None:
+        log("client_id is not defined")
+    else:
+        r = requests.post(
+            url,
+            headers=headers,
+            data=json.dumps(
+                {
+                    "client_id": client_id,
+                    "events": [
+                        {
+                            "name": event_name,
+                            "params": params,
+                        }
+                    ],
+                }
+            ),
+        )
+        log(f'"POST google-analytics.com" {r.status_code}')
