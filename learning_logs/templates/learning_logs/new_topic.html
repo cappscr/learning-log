@@ -14,27 +14,20 @@
   <form action="{% url 'learning_logs:new_topic' %}" method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
-    {% bootstrap_button button_type="submit" content="Add topic" %}
+    {% bootstrap_button button_type="submit" content="Add topic" id="add_topic" %}
   </form>
 
 {% endblock content %}
 
 {% block custom_javascript %}
 <script>
-  if (!gaClientId) window.setTimeout(appendToForm, 250);
-  else appendToForm();
-  
-  function appendToForm() {
-    const gaClientIdInput = document.createElement("input");
-    gaClientIdInput.type = "hidden";
-    gaClientIdInput.name = "ga_client_id";
-    gaClientIdInput.value = gaClientId;
-    const hiddenInputs = document.getElementsByName("csrfmiddlewaretoken");
-    if (hiddenInputs) {
-      hiddenInputs.forEach((input) => {
-        input.insertAdjacentElement("afterend", gaClientIdInput);
+  const addTopicButton = document.getElementById("add_topic");
+  addTopicButton.addEventListener("click", () => {
+    if (window.gtag) {
+      gtag("event", "new_topic_added", {
+        "topic": document.getElementById("id_text").value
       });
     }
-  }
+  });
 </script>
 {% endblock custom_javascript %}
