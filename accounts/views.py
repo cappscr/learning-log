@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from utils.helpers import sendGaEvent, log
 
 
 # Create your views here.
@@ -16,15 +15,6 @@ def register(request):
 
         if form.is_valid():
             new_user = form.save()
-
-            if request.POST["ga_client_id"]:
-                sendGaEvent(
-                    request.POST["ga_client_id"],
-                    "user_registration",
-                    {"username": str(new_user)},
-                )
-            else:
-                log("ga_client_id not received")
 
             # Log the user in and then redirect to the home page.
             login(request, new_user)

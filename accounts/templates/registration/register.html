@@ -14,27 +14,22 @@
   <form action="{% url 'accounts:register' %}" method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
-    {% bootstrap_button button_type="submit" content="Register" %}
+    {% bootstrap_button button_type="submit" content="Register" id="register" %}
   </form>
 
 {% endblock content %}
 
 {% block custom_javascript %}
 <script>
-  if (!gaClientId) window.setTimeout(appendToForm, 250);
-  else appendToForm();
-  
-  function appendToForm() {
-    const gaClientIdInput = document.createElement("input");
-    gaClientIdInput.type = "hidden";
-    gaClientIdInput.name = "ga_client_id";
-    gaClientIdInput.value = gaClientId;
-    const hiddenInputs = document.getElementsByName("csrfmiddlewaretoken");
-    if (hiddenInputs) {
-      hiddenInputs.forEach((input) => {
-        input.insertAdjacentElement("afterend", gaClientIdInput);
+  const registerBtn = document.getElementById("register");
+  registerBtn.addEventListener('click', () => {
+    if (window.gtag) {
+      gtag('event', 'user_registration', {
+        "username": document.getElementById('id_username').value
       });
+    } else {
+      console.warn('window.gtag is not defined');
     }
-  }
+  });
 </script>
 {% endblock custom_javascript %}

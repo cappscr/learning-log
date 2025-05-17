@@ -4,7 +4,7 @@ import json
 from datetime import datetime
 
 measurement_id = "G-G3V2DWQJQR"
-api_secret = json.loads(environ.get("GA_API_SECRET"))["GA_API_SECRET"]
+api_secret = "12345"  # json.loads(environ.get("GA_API_SECRET"))["GA_API_SECRET"]
 base_url = "https://www.google-analytics.com/mp/collect"
 url = base_url + "?measurement_id=" + measurement_id + "&api_secret=" + api_secret
 headers = {"Content-Type": "application/json"}
