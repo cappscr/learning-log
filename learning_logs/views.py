@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, JsonResponse
+from django.http import Http404, HttpResponseServerError, JsonResponse
 
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
@@ -110,9 +110,9 @@ def delete_entry(request, entry_id):
     topic = entry.topic
     check_topic_owner(topic, request)
 
-    if request.method != "DELETE":
-        # Redirect
+    results = entry.delete()
+    if results[0] == 1:
         return redirect("learning_logs:topic", topic_id=topic.id)
     else:
-        print("DELETE request received")
-        return JsonResponse({"message": "DELETE request received"})
+        print(results)
+        return HttpResponseServerError("Error deleting the entry")

@@ -24,7 +24,7 @@
       <!-- Card body with entry text -->
       <div class="card-body">
         {{ entry.text|linebreaks }}
-        <button class="btn btn-primary" name="delete_entry" data-entry-id="{{ entry.id }}">Delete</button>
+        <a class="btn btn-primary" href="{% url 'learning_logs:delete_entry' entry.id %}">Delete</a>
       </div>
     </div>
   {% empty %}
@@ -32,40 +32,3 @@
   {% endfor %}
 
 {% endblock content %}
-
-{% block custom_javascript %}
-  <script>
-    function getCookie(name) {
-      let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                let cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.startsWith(name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    const deleteBtns = document.getElementsByName("delete_entry");
-    deleteBtns.forEach((deleteBtn) => {
-      deleteBtn.addEventListener("click", async () => {
-        const url = document.location.origin + "/delete_entry/" + deleteBtn.getAttribute("data-entry-id") + "/";
-        const csrfToken = getCookie("csrftoken");
-        try {
-          const response = await fetch(url, {
-            method: "DELETE",
-            headers: {
-               'X-CSRFToken': csrfToken
-            },
-          });
-        } catch (error) {
-          console.error(error.message);
-        }
-      });
-    });
-  </script>
-{% endblock custom_javascript %}
