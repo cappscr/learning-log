@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.http import Http404, JsonResponse
 
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
@@ -101,3 +101,18 @@ def edit_entry(request, entry_id):
 
     context = {"entry": entry, "topic": topic, "form": form}
     return render(request, "learning_logs/edit_entry.html", context)
+
+
+@login_required
+def delete_entry(request, entry_id):
+    """Delete an existing entry"""
+    entry = Entry.objects.get(id=entry_id)
+    topic = entry.topic
+    check_topic_owner(topic, request)
+
+    if request.method != "DELETE":
+        # Redirect
+        return redirect("learning_logs:topic", topic_id=topic.id)
+    else:
+        print("DELETE request received")
+        return JsonResponse({"message": "DELETE request received"})
