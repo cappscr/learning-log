@@ -4,7 +4,6 @@ from django.http import Http404
 
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
-from utils.helpers import sendGaEvent, log
 
 
 def check_topic_owner(topic, request):
@@ -97,18 +96,6 @@ def edit_entry(request, entry_id):
         form = EntryForm(instance=entry, data=request.POST)
         if form.is_valid():
             form.save()
-
-            try:
-                sendGaEvent(
-                    request.POST["ga_client_id"],
-                    "entry_edited",
-                    {
-                        "topic": str(entry.topic),
-                        "username": str(entry.topic.owner),
-                    },
-                )
-            except Exception as e:
-                log(str(e))
 
             return redirect("learning_logs:topic", topic_id=topic.id)
 
