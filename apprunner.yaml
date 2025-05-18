@@ -16,5 +16,3 @@ run:
   secrets:
     - name: DATABASE_SECRET
       value-from: "arn:aws:secretsmanager:us-east-1:465616206436:secret:prod/rds/postgres-Mce3to"
-    - name: GA_API_SECRET
-      value-from: "arn:aws:secretsmanager:us-east-1:465616206436:secret:prod/GoogleAnalytics/APISecret-YlXMdX"
