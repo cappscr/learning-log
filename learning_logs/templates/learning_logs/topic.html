@@ -31,4 +31,6 @@
     <p>There are no entries for this topic yet.</p>
   {% endfor %}
 
+  <a class="btn btn-sm btn-danger" href="{% url 'learning_logs:delete_topic' topic.id %}">Delete topic</a>
+
 {% endblock content %}

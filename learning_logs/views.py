@@ -116,3 +116,17 @@ def delete_entry(request, entry_id):
     else:
         print(results)
         return HttpResponseServerError("Error deleting the entry")
+
+
+@login_required
+def delete_topic(request, topic_id):
+    """Delete an existing topic"""
+    topic = Topic.objects.get(id=topic_id)
+    check_topic_owner(topic, request)
+
+    results = topic.delete()
+    if results[0] == 1:
+        return redirect("learning_logs:topics")
+    else:
+        print(results)
+        return HttpResponseServerError("Error deleting the topic")
