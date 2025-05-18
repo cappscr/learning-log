@@ -124,9 +124,19 @@ def delete_topic(request, topic_id):
     topic = Topic.objects.get(id=topic_id)
     check_topic_owner(topic, request)
 
-    results = topic.delete()
-    if results[0] == 1:
+    entries = topic.entry_set.all()
+    print(entries)
+
+    # check if there are associated entries
+    num_entries_to_be_deleted = len(entries)
+    if len(entries) > 0:
+        num_deleted = entries.delete()
+        if num_entries_to_be_deleted != num_deleted[0]:
+            return HttpResponseServerError("Error deleting associated entries")
+
+    delete_results = topic.delete()
+    if delete_results[0] == 1:
         return redirect("learning_logs:topics")
     else:
-        print(results)
+        print(delete_results)
         return HttpResponseServerError("Error deleting the topic")
