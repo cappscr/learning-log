@@ -4,7 +4,6 @@ from django.http import Http404
 
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
-from utils.helpers import sendGaEvent, log
 
 
 def check_topic_owner(topic, request):
@@ -51,15 +50,6 @@ def new_topic(request):
             new_topic.owner = request.user
             new_topic.save()
 
-            try:
-                sendGaEvent(
-                    request.POST["ga_client_id"],
-                    "new_topic_added",
-                    {"topic": str(new_topic.text), "username": str(new_topic.owner)},
-                )
-            except Exception as e:
-                log(str(e))
-
             return redirect("learning_logs:topics")
 
     # Display a blank or invalid form.
@@ -84,18 +74,6 @@ def new_entry(request, topic_id):
             new_entry.topic = topic
             new_entry.save()
 
-            try:
-                sendGaEvent(
-                    request.POST["ga_client_id"],
-                    "new_entry_added",
-                    {
-                        "topic": str(new_entry.topic),
-                        "username": str(new_entry.topic.owner),
-                    },
-                )
-            except Exception as e:
-                log(str(e))
-
             return redirect("learning_logs:topic", topic_id=topic_id)
 
     # Display a blank or invalid form.
@@ -118,18 +96,6 @@ def edit_entry(request, entry_id):
         form = EntryForm(instance=entry, data=request.POST)
         if form.is_valid():
             form.save()
-
-            try:
-                sendGaEvent(
-                    request.POST["ga_client_id"],
-                    "entry_edited",
-                    {
-                        "topic": str(entry.topic),
-                        "username": str(entry.topic.owner),
-                    },
-                )
-            except Exception as e:
-                log(str(e))
 
             return redirect("learning_logs:topic", topic_id=topic.id)
 
