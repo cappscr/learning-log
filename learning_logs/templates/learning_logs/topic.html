@@ -24,7 +24,7 @@
       <!-- Card body with entry text -->
       <div class="card-body">
         {{ entry.text|linebreaks }}
-        <a class="btn btn-primary" href="{% url 'learning_logs:delete_entry' entry.id %}">Delete</a>
+        <a class="btn btn-sm btn-danger" href="{% url 'learning_logs:delete_entry' entry.id %}">Delete entry</a>
       </div>
     </div>
   {% empty %}
