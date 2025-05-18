@@ -25,7 +25,8 @@
   addTopicButton.addEventListener("click", () => {
     if (window.gtag) {
       gtag("event", "new_topic_added", {
-        "topic": document.getElementById("id_text").value
+        "topic": document.getElementById("id_text").value,
+        "user": "{{ user }}"
       });
     }
   });

@@ -75,18 +75,6 @@ def new_entry(request, topic_id):
             new_entry.topic = topic
             new_entry.save()
 
-            try:
-                sendGaEvent(
-                    request.POST["ga_client_id"],
-                    "new_entry_added",
-                    {
-                        "topic": str(new_entry.topic),
-                        "username": str(new_entry.topic.owner),
-                    },
-                )
-            except Exception as e:
-                log(str(e))
-
             return redirect("learning_logs:topic", topic_id=topic_id)
 
     # Display a blank or invalid form.
